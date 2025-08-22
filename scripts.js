@@ -82,6 +82,20 @@ inputTags.addEventListener("keypress", async (evento) => {
 
 const botaoPublicar = document.querySelector(".botao-publicar");
 
+async function publicarProjeto(nomeDoProjeto, descricaoProjeto, tagsProjeto) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const deuCerto = Math.random() > 0.5;
+
+            if(deuCerto) {
+                resolve("Projeto Publicado com Sucesso");
+            } else {
+                reject("Erro ao publicar o projeto");
+            }
+        }, 2000)
+    })
+}
+
 botaoPublicar.addEventListener("click", async (evento) => {
     evento.preventDefault();
 
@@ -90,8 +104,13 @@ botaoPublicar.addEventListener("click", async (evento) => {
     const descricaoProjeto = document.getElementById("descricao").value;
     const tagsProjeto = Array.from(listaTags.querySelectorAll("p")).map((tag) => tag.textContent);
 
-    console.log(nomeDoProjeto);
-    console.log(descricaoProjeto);
-    console.log(tagsProjeto);
+    try{
+        const resultado = await publicarProjeto(nomeDoProjeto, descricaoProjeto, tagsProjeto);
+        console.log(resultado);
+        alert("Deu Tudo Certo!");
+    } catch (error) {
+        console.log("Deu Errado: ", error);
+        alert("Deu tudo errado.");
+    }
 })
 
